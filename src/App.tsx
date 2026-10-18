@@ -62,15 +62,7 @@ interface AuthUserProfile {
 
 export default function App() {
   // Auth state defaults to null so user sees Login Page first
-  const [currentUser, setCurrentUser] = useState<AuthUserProfile | null>({
-    uid: INITIAL_MEMBERS[0].id,
-    email: INITIAL_MEMBERS[0].email,
-    displayName: INITIAL_MEMBERS[0].name,
-    role: INITIAL_MEMBERS[0].roles[0],
-    isHomeHead: INITIAL_MEMBERS[0].isHomeHead,
-    householdId: INITIAL_HOUSEHOLD.id,
-    needsFirstStep: false,
-  });
+  const [currentUser, setCurrentUser] = useState<AuthUserProfile | null>(null);
 
   // First step role identification flag
   const [needsFirstStep, setNeedsFirstStep] = useState<boolean>(false);
@@ -140,16 +132,20 @@ export default function App() {
 
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       if (firebaseUser) {
-        setCurrentUser({
-          uid: firebaseUser.uid,
-          email: firebaseUser.email || 'user@vitalplate.app',
-          displayName: firebaseUser.displayName || 'Authorized User',
-          photoURL: firebaseUser.photoURL || undefined,
-          role: 'admin',
-          isHomeHead: true,
-          needsFirstStep: true, // Prompt role identification on first sign-in
+        // Only trigger auto-login for real Firebase users if no one is logged in via password yet
+        setCurrentUser(prev => {
+          if (prev) return prev;
+          
+          return {
+            uid: firebaseUser.uid,
+            email: firebaseUser.email || 'user@vitalplate.app',
+            displayName: firebaseUser.displayName || 'Authorized User',
+            photoURL: firebaseUser.photoURL || undefined,
+            role: 'admin',
+            isHomeHead: true,
+            needsFirstStep: true,
+          };
         });
-        setNeedsFirstStep(true);
       }
     });
 
