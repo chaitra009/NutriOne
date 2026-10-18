@@ -1,7 +1,3 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
-
 # NutriOne: Clinic-to-Kitchen AI 🥗🔬
 
 NutriOne is an advanced family-level nutrition platform that orchestrates clinical lab targets into everyday domestic kitchen execution. It leverages **Gemini 3.8 Flash** and **Vertex AI** to analyze medical laboratory reports for every household member and synthesize a unified, culturally authentic meal plan that respects diverse medical guardrails (e.g., PCOS, Hypertension, CKD).
