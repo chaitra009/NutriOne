@@ -1,7 +1,21 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore, doc, getDocFromServer, collection, getDocs } from 'firebase/firestore';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, User } from 'firebase/auth';
-import firebaseConfig from '../firebase-applet-config.json';
+
+/**
+ * PRODUCTION READY FIREBASE INITIALIZATION
+ * Uses Vite environment variables with fallback to original JSON values
+ * to prevent blank page during local development.
+ */
+const firebaseConfig: any = {
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "crjrproductions",
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || "1:441340478763:web:20947dbd6b48565a28b16e",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyADyJKA57Y1nY6DgeE_JesIkxuTOkD8r8U",
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "crjrproductions.firebaseapp.com",
+  firestoreDatabaseId: import.meta.env.VITE_FIREBASE_DATABASE_ID || "ai-studio-remixremixvitalp-d3df39cf-3517-426c-9f2c-856a99b18063",
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "crjrproductions.firebasestorage.app",
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "441340478763",
+};
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
