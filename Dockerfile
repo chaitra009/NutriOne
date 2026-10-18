@@ -32,7 +32,7 @@ COPY package*.json ./
 COPY tsconfig.json ./
 
 # Install production node dependencies (for tsx/express)
-RUN npm install --only=production
+RUN npm install --only=production --legacy-peer-deps
 
 # Set production environment variables
 ENV NODE_ENV=production
